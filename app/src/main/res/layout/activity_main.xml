@@ -17,10 +17,13 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
+
+
+
     <com.example.voicerecorder.WaveformView
         android:id="@+id/waveformView"
         android:layout_width="match_parent"
-        android:layout_height="400px"
+        android:layout_height="1000px"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
