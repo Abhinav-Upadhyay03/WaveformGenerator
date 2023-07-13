@@ -8,4 +8,7 @@
     <color name="grayDarkDisabled">#8F8F8F</color>
     <color name="colorText">#282828</color>
     <color name="statusColor">#EDEDED</color>
+
+    <color name="strokeColour">#1E88E5</color>
+    <color name="opaqueBG">#61000000</color>
 </resources>
