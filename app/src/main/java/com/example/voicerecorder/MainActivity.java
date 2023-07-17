@@ -292,9 +292,15 @@ public class MainActivity extends AppCompatActivity implements Timer.OnTimerTick
 
         }
 
-        //TODO - Start recording here.
+        //TODO: Save to device storage.
+
+        /**     We need to set the output file location before preparing the recorder
+                i.e recorder.prepare()
+         **/
+
         recorder = new MediaRecorder();
-        dirPath = getExternalCacheDir() != null ? getExternalCacheDir().getAbsolutePath() + "/" : "";
+//        dirPath = getApplicationContext().getFilesDir().getAbsolutePath();              /* For internal storage */
+        dirPath = getExternalCacheDir() != null ? getExternalCacheDir().getAbsolutePath() + "/" : "";     /* For external storage in cache */
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy.MM.DD_hh.mm.ss");
         String date = simpleDateFormat.format(new Date());
         fileName = "audio " + date;
@@ -302,6 +308,50 @@ public class MainActivity extends AppCompatActivity implements Timer.OnTimerTick
         recorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
         recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC);
         recorder.setOutputFile(dirPath+fileName+".mp3");
+
+        //******************************************************************************************
+
+
+
+
+
+//        String directoryPath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/my_directory";
+//        File directory = new File(directoryPath);
+//        boolean isDirectoryCreated = directory.mkdirs();
+//
+//        if (isDirectoryCreated) {
+//            String fileName = "audio_2023.07.196_10.55.48.mp3";
+//            String filePath = directory.getAbsolutePath() + File.separator + fileName;
+//            recorder.setOutputFile(filePath);
+//        }
+
+
+        //******************************************************************************************
+
+
+//        String file_folder="/abhinav/";
+//
+//        String file_path = Environment.getExternalStorageDirectory().getAbsolutePath();
+//
+//        File file = new File(file_path,file_folder);
+//        recorder.setAudioChannels(1);
+//        recorder.setAudioSamplingRate(8000);
+//        recorder.setAudioEncodingBitRate(44100);
+//
+//
+//        if (!file.exists()){
+//            file.mkdirs();
+//        }
+//        recorder.setOutputFile(file_path+fileName+".mp3");
+//        System.out.println(
+//                dirPath+fileName+".mp3"
+//        );
+
+//        recorder.setOutputFile(file.getAbsolutePath()+"/"+"_"+date+".amr");
+
+
+
+        //******************************************************************************************
 
         try {
             recorder.prepare();
@@ -355,6 +405,12 @@ public class MainActivity extends AppCompatActivity implements Timer.OnTimerTick
         btnRecord.setImageResource(R.drawable.ic_record);
         tvTimer.setText("00:00:00");
         amplitudes = waveformView.clear();
+
+
+
+
+
+
     }
 
 

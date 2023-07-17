@@ -36,9 +36,13 @@
             android:textSize="14sp"
             android:text="abhinav"
             />
+
+
         
         
     </LinearLayout>
+
+
     <CheckBox
         android:id="@+id/checkbox"
         android:layout_width="30dp"
