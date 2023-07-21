@@ -60,8 +60,13 @@ public class GalleryActivity extends AppCompatActivity implements OnItemClickLis
 
     @Override
     public void onItemLongClickListener(int position) {
-        //TODO
-        Toast.makeText(this, "long click", Toast.LENGTH_SHORT).show();
+        //TODO : Can perform some task on long click if req. here. For now, keeping it same as the short click task.
+        AudioRecord audioRecord = records.get(position);
+        Intent intent = new Intent(this, AudioPlayerActivity.class);
+
+        intent.putExtra("filePath",audioRecord.getFilePath());
+        intent.putExtra("fileName",audioRecord.getFileName());
+        startActivity(intent);
 
     }
 

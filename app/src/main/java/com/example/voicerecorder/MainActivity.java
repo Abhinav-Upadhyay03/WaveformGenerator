@@ -3,6 +3,8 @@ package com.example.voicerecorder;
 
 
 
+import static android.content.ContentValues.TAG;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -24,6 +26,7 @@ import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.provider.MediaStore;
 import android.provider.Settings;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -43,6 +46,7 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -298,16 +302,37 @@ public class MainActivity extends AppCompatActivity implements Timer.OnTimerTick
                 i.e recorder.prepare()
          **/
 
+        //*******************************************************************************************
+
+        String state = Environment.getExternalStorageState();
+        Log.d(TAG, state);
+
+        Context ctx = this.getApplicationContext();
+        File audioDir = new File(ctx.getExternalFilesDir("Audio"), "AudioMemos");
+        audioDir.mkdirs();
+        String audioDirPath = audioDir.getAbsolutePath();
+        Log.d(TAG, "Recording file location: " + audioDirPath);
+
+        Date currentTime = Calendar.getInstance().getTime(); // current time
+        String curTimeStr = currentTime.toString().replace(" ", "_");
+
+        File recordingFile = new File(audioDirPath + "/" + curTimeStr + ".mp3");
+        Log.d(TAG, "Created file: " + recordingFile.getName());
+
+
+        //*******************************************************************************************
+
+
         recorder = new MediaRecorder();
-//        dirPath = getApplicationContext().getFilesDir().getAbsolutePath();              /* For internal storage */
-        dirPath = getExternalCacheDir() != null ? getExternalCacheDir().getAbsolutePath() + "/" : "";     /* For external storage in cache */
+
+        dirPath = getExternalCacheDir() != null ? getExternalCacheDir().getAbsolutePath() + "/" : "";
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy.MM.DD_hh.mm.ss");
         String date = simpleDateFormat.format(new Date());
         fileName = "audio " + date;
         recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
         recorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
-        recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC);
-        recorder.setOutputFile(dirPath+fileName+".mp3");
+        recorder.setAudioEncoder(MediaRecorder.AudioEncoder.DEFAULT);
+        recorder.setOutputFile(recordingFile.getAbsolutePath());
 
         //******************************************************************************************
 
